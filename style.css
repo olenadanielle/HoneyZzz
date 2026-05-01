@@ -120,6 +120,65 @@ footer {
       justify-content: flex-end;
     }
 
+.navgauche {
+  width: 200px;
+  position: fixed;
+  top: 75px; /* Ajuste pour que ça colle parfaitement sous ta navbar du haut */
+  left: 0;
+  bottom: 0;
+  background: #fff8ee;
+  border-right: 2px solid #e0c97a;
+  display: flex;
+  flex-direction: column;
+  /* On s'assure que rien ne dépasse */
+  overflow: hidden; 
+}
+
+/* On force la sidebar à prendre toute la largeur disponible */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Le style des liens */
+.navgauche .nav-item {
+  display: block; 
+  width: 100%;        /* Force le lien à prendre toute la largeur */
+  box-sizing: border-box; /* Évite que le padding ne fasse déborder le bouton */
+  padding: 20px 15px; /* On augmente un peu la hauteur pour que ce soit plus cliquable */
+  text-decoration: none;
+  color: #2c1a00; 
+  border-bottom: 1px solid #e0c97a;
+  font-size: 1rem;
+  text-align: center; /* Centre le texte comme sur ton image */
+  transition: all 0.2s;
+}
+
+.navgauche .nav-item:hover {
+  background: #fceec7;
+}
+
+.navgauche .nav-item.active {
+  background: #e0c97a;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Le bouton retour */
+.btn-retour {
+  margin-top: auto; 
+  width: 100%;        /* Prend toute la largeur */
+  box-sizing: border-box;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  background: #2c1a00;
+  color: #fff8ee;
+  font-weight: bold;
+  border: none;
+}
+
     .btn-connexion {
       display: flex;
       align-items: center;
@@ -1317,4 +1376,60 @@ footer {
   font-weight: 600;
   color: #2c1a00;
   box-shadow: 0 8px 30px rgba(200,150,0,0.15);
+}
+
+
+/* pour ajouter une ruche */
+
+.container-form {
+    display: flex;
+    justify-content: center;
+    padding: 50px 20px;
+    background: #f5f0e8; /* Ton fond de page */
+}
+
+.form-card {
+    background: #fff8ee;
+    padding: 30px;
+    border-radius: 15px;
+    border: 2px solid #e0c97a;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.form-card h2 { color: #2c1a00; margin-top: 0; }
+
+.form-group { margin-bottom: 20px; display: flex; flex-direction: column; }
+
+.form-group label { margin-bottom: 8px; font-weight: bold; color: #5a3e00; }
+
+.form-group input, .form-group select {
+    padding: 12px;
+    border: 1px solid #e0c97a;
+    border-radius: 8px;
+    background: white;
+}
+
+.form-buttons { display: flex; gap: 15px; margin-top: 25px; }
+
+.btn-valider {
+    flex: 2;
+    background: #2c1a00;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-annuler {
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    color: #2c1a00;
+    border: 1px solid #2c1a00;
+    padding: 12px;
+    border-radius: 8px;
 }

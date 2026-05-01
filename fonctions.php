@@ -154,4 +154,42 @@ function AjouterRuche($connexion, $nom, $date, $espece, $statut, $idEmplacement)
     return mysqli_query($connexion, $sql);
 }
 
+
+function afficherHumidite($connexion, $nomRuche) {
+    // On nettoie le nom de la ruche pour la sécurité
+    $nomRuche = mysqli_real_escape_string($connexion, $nomRuche);
+
+    // Requête : on filtre par ruche et on trie par ID (ou date) décroissant
+    // On peut ajouter "LIMIT 10" pour n'afficher que les 10 dernières mesures
+    $query = "SELECT humidite FROM Multisensor M JOIN Ruche R on M.idRuche = R.idRuche
+              WHERE nom = '$nomRuche'"; 
+    
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat) {
+        $total = mysqli_num_rows($resultat);
+        $i = 1;
+
+        while ($h = mysqli_fetch_array($resultat)) {
+            // Gestion des classes CSS
+            $class = "";
+            if ($i == 1) $class = "first";
+            elseif ($i == $total) $class = "last";
+
+            echo "<li class='$class'>";
+            echo "<div class='card'>";
+                echo "<h3>Humidité</h3>";
+                // Affichage du taux
+                echo "<p class='card-prix'>" . $h["humidite"] . " %</p>";
+                echo "<div class='footer-card'><small>Mesure n°" . $i . "</small></div>";
+            echo "</div>";
+            echo "</li>";
+            $i++;
+        }
+    } else {
+        echo "Erreur SQL : " . mysqli_error($connexion);
+    }
+}
+
+
 ?>
