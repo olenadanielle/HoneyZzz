@@ -52,7 +52,17 @@ $nomRuche = isset($_GET['nom']) ? $_GET['nom'] : "Ruche inconnue";
                 <?php 
                 // On appelle ta fonction. 
                 // Note : Si tu as modifié ta fonction pour accepter $nomRuche, n'oublie pas l'argument !
-                afficherHumidite($connexion, $nomRuche); 
+                afficherHumidite($connexion, $nomRuche);
+                afficherNbPassage($connexion, $nomRuche);
+                afficherUv($connexion, $nomRuche);
+                afficher Vibration($connexion, $nomRuche);
+                afficherOuvertureR($connexion, $nomRuche);
+                AfficherPrise($connexion, $nomRuche);
+                afficherBalance($connexion, $nomRuche);
+                AfficherPanneauSolaire($connexion, $nomRuche);
+                afficherTapisChauffant($connexion, $nomRuche);
+                AfficherVentilation($connexion, $nomRuche);
+                AfficherBatterie($connexion, $nomRuche);
                 ?>
             </ul>
         </div>
