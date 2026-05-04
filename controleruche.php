@@ -55,7 +55,7 @@ $nomRuche = isset($_GET['nom']) ? $_GET['nom'] : "Ruche inconnue";
                 afficherHumidite($connexion, $nomRuche);
                 afficherNbPassage($connexion, $nomRuche);
                 afficherUv($connexion, $nomRuche);
-                afficher Vibration($connexion, $nomRuche);
+                afficherVibration($connexion, $nomRuche);
                 afficherOuvertureR($connexion, $nomRuche);
                 AfficherPrise($connexion, $nomRuche);
                 afficherBalance($connexion, $nomRuche);
