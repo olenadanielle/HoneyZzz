@@ -191,5 +191,448 @@ function afficherHumidite($connexion, $nomRuche) {
     }
 }
 
+function afficherNbPassage($connexion,$nomRuche) {
+    $query = "SELECT nbPassage FROM MULTISENSOR M JOIN Ruche R on M.idRuche = R.idRuche
+              WHERE nom = '$nomRuche' ; ";
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat) {
+        $total = mysqli_num_rows($resultat);
+        $i = 1;
+
+        while ($p = mysqli_fetch_array($resultat)) {
+            
+        
+            if ($i == 1) { 
+                echo "<li class='first'>"; 
+            } elseif ($i == $total) { 
+                echo "<li class='last'>"; 
+            } else { 
+                echo "<li>"; 
+            }
+
+           
+            echo "<div class='card'>";
+                echo "<h3>Activité (Passages)</h3>";
+                
+               
+                echo "<p class='card-prix'>" . $p["nbPassage"] . "</p>";
+                
+                echo "<p class='card-label'>Mouvements détectés</p>";
+                
+                echo "<div class='footer-card'><small>Capteur Multisensor</small></div>";
+            echo "</div>";
+
+            echo "</li>";
+            $i++;
+        }
+    } else {
+        echo "Erreur SQL : " . mysqli_error($connexion);
+    }
+}
+
+function afficherUv($connexion,$nomRuche) {
+    // 1. Requête SQL pour l'indice UV
+    $query = "SELECT uv FROM MULTISENSOR M JOIN Ruche R on M.idRuche = R.idRuche
+              WHERE nom = '$nomRuche' ; ";
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat) {
+        // 2. On compte les lignes pour gérer les classes CSS (first/last)
+        $total = mysqli_num_rows($resultat);
+        $i = 1;
+
+        // 3. Boucle d'affichage
+        while ($u = mysqli_fetch_array($resultat)) {
+            
+            // Gestion des classes CSS selon la position
+            if ($i == 1) { 
+                echo "<li class='first'>"; 
+            } elseif ($i == $total) { 
+                echo "<li class='last'>"; 
+            } else { 
+                echo "<li>"; 
+            }
+
+            // Structure de la carte UV
+            echo "<div class='card'>";
+                echo "<h3>Indice UV</h3>";
+                
+                // On affiche la valeur de l'indice
+                echo "<p class='card-prix'>" . $u["uv"] . "</p>";
+                
+                echo "<p class='card-label'>Intensité du soleil</p>";
+                
+                // Footer de la carte pour la finition
+                echo "<div class='footer-card'><small>Données Multisensor</small></div>";
+            echo "</div>";
+
+            echo "</li>";
+            $i++;
+        }
+    } else {
+        echo "Erreur SQL : " . mysqli_error($connexion);
+    }
+}
+
+function afficherVibration($connexion,$nomRuche) {
+    // 1. Requête SQL pour les vibrations
+    $query = "SELECT vibration FROM MULTISENSOR M JOIN Ruche R on M.idRuche = R.idRuche
+              WHERE nom = '$nomRuche' ;";
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat) {
+        // 2. On compte les lignes pour les classes CSS
+        $total = mysqli_num_rows($resultat);
+        $i = 1;
+
+        // 3. Boucle d'affichage
+        while ($v = mysqli_fetch_array($resultat)) {
+            
+            // Gestion des classes CSS first/last
+            if ($i == 1) { 
+                echo "<li class='first'>"; 
+            } elseif ($i == $total) { 
+                echo "<li class='last'>"; 
+            } else { 
+                echo "<li>"; 
+            }
+
+            // Structure Card pour les vibrations
+            echo "<div class='card'>";
+                echo "<h3>Vibrations</h3>";
+                
+                // Affichage de la valeur
+                echo "<p class='card-prix'>" . $v["vibration"] . "</p>";
+                
+                echo "<p class='card-label'>Intensité détectée</p>";
+                
+                echo "<div class='footer-card'><small>Capteur Multisensor</small></div>";
+            echo "</div>";
+
+            echo "</li>";
+            $i++;
+        }
+    } else {
+        echo "Erreur SQL : " . mysqli_error($connexion);
+    }
+}
+
+function afficherOuvertureR($connexion,$nomRuche) {
+    // Ta requête pour récupérer les ouvertures et alarmes
+    $query = "Select ouvert, alarme 
+From Ouverture_Ruche O join Ruche R On O.idRuche = R.idRuche 
+              WHERE nom = '$nomRuche' ;";	
+    
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat) {
+        $total = mysqli_num_rows($resultat);
+        $i = 1;
+
+        while ($o = mysqli_fetch_array($resultat)) {
+            // Gestion des classes CSS (first/last)
+            if ($i == 1) { 
+                echo "<li class='first'>"; 
+            } elseif ($i == $total) { 
+                echo "<li class='last'>"; 
+            } else { 
+                echo "<li>"; 
+            }
+
+            echo "<div class='card'>";
+                // On affiche l'état d'ouverture en titre
+                echo "<h3>État : " . $o["ouvert"] . "</h3>";
+                
+                // On affiche l'alarme avec ta classe card-label
+                echo "<p class='card-label'><strong>Alarme :</strong> " . $o["alarme"] . "</p>";
+                
+                // Petit footer pour le style
+                echo "<div class='footer-card'><small>Système de surveillance</small></div>";
+            echo "</div>";
+            
+            echo "</li>";
+            $i++;
+        }
+    } else {
+        echo "Erreur SQL : " . mysqli_error($connexion);
+    }
+}
+
+function AfficherPrise ($connexion,$nomRuche) {
+    // 1. La requête SQL adaptée à votre table PRISE
+    $query = "SELECT consommationW, etatPrise FROM PRISE P JOIN Ruche R on P.idRuche = R.idRuche
+              WHERE nom = '$nomRuche' ;";	
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat) {
+        $total = mysqli_num_rows($resultat);
+        $i = 1;
+
+        while ($p = mysqli_fetch_array($resultat)) {
+            // Gestion des classes CSS pour la liste
+            if ($i == 1) { 
+                echo "<li class='first'>"; 
+            } elseif ($i == $total) { 
+                echo "<li class='last'>"; 
+            } else { 
+                echo "<li>"; 
+            }
+
+            // Traduction de l'état (0 ou 1) en texte lisible
+            $status = ($p["etatPrise"] == 1) ? "true" : "false";
+            $statusClass = ($p["etatPrise"] == 1) ? "text-success" : "text-danger";
+
+            echo "<div class='card'>";
+                echo "<h3>Prise #" . $i . "</h3>";
+                echo "<p class='consumption'><strong>Consommation :</strong> " . $p["consommationW"] . " W</p>";
+                echo "<p><strong>État :</strong> <span class='$statusClass'>" . $status . "</span></p>";
+                echo "<div class='footer-card'><small>Mise à jour en temps réel</small></div>";
+            echo "</div>";
+            echo "</li>";
+
+            $i++;
+        }
+    } else {
+        echo "Erreur SQL : " . mysqli_error($connexion);
+    }
+}
+
+SELECT consommationW FROM PRISE;
+
+// fonction qui récupère la consommation depuis la BDD 
+function recupConsommation($connexion) {
+	// requete + exécution 
+	$query = “SELECT consommationW FROM PRISE”;
+”
+	$resultat = mysqli_query($connexion, $query);
+
+	$data = [];
+	
+	if ($resultat) {
+		while ($t = mysqli_fetch_array($resultat)) {
+			$data[] = [
+				“consommationW ” => $t[“consommationW ”]
+
+
+	if ($resultat) {
+		// on compte les lignes pour les classes CSS
+		$total = mysqli_num_rows($resultat);
+		$i = 1;
+
+while ($p = mysqli_fetch_array($resultat)) {
+	if ($i == 1) { 
+   		 echo "<li class='first'>"; 
+} elseif ($i == $total) { 
+    		echo "<li class='last'>"; 
+} else { 
+    		echo "<li>"; 
+}
+
+}
+function afficherBalance($connexion, $nomRuche) {
+    $nomRuche = mysqli_real_escape_string($connexion, $nomRuche);
+
+    $query = "SELECT poids, datemesure, etatBalance FROM BALANCE B JOIN Ruche R ON B.idRuche = R.idRuche WHERE nom = '$nomRuche'";
+
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat) {
+        $total = mysqli_num_rows($resultat);
+        $i = 1;
+
+        while ($b = mysqli_fetch_array($resultat)) {
+
+            // Classes CSS
+            $class = ($i == 1) ? "first" : (($i == $total) ? "last" : "");
+
+      
+            $etat = $b["etatBalance"];
+            $etatClass = ($etat == "normal") ? "text-success" : "text-danger";
+
+            echo "<li class='$class'>";
+            echo "<div class='card'>";
+                echo "<h3>Poids ruche</h3>";
+                echo "<p class='card-prix'>" . $b["poids"] . " kg</p>";
+                echo "<p><strong>État :</strong> <span class='$etatClass'>$etat</span></p>";
+                echo "<div class='footer-card'><small>Date : " . $b["datemesure"] . "</small></div>";
+            echo "</div>";
+            echo "</li>";
+
+            $i++;
+        }
+    } else {
+        echo "Erreur SQL : " . mysqli_error($connexion);
+    }
+}
+
+			
+function AfficherPanneauSolaire($connexion,$nomRuche) {
+    $query = "Select etatP, puissanceW, rendement
+From PanneauSolaire PS
+	JOIN Batterie B on PS.idPanSol = B.idPanSol
+ JOIN Ruche R on B.idRuche = R.idRuche
+              WHERE nomRuche = '$nomRuche'";	
+
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat) {
+        $total = mysqli_num_rows($resultat);
+        $i = 1;
+
+        while ($ps = mysqli_fetch_array($resultat)) {
+            // Gestion des classes CSS (first pour le 1er, last pour le dernier)
+            if ($i == 1) { 
+                echo "<li class='first'>"; 
+            } elseif ($i == $total) { 
+                echo "<li class='last'>"; 
+            } else { 
+                echo "<li>"; 
+            }
+
+            echo "<div class='card'>";
+                echo "<h3>Panneau Solaire n°" . $i . "</h3>";
+                echo "<p class='card-label'><strong>État :</strong> " . $ps["etatP"] . "</p>";
+echo "<p><strong>Puissance :</strong> " . $ps["puissanceW"] . " W</p>"; 
+echo "<p><strong>Rendement :</strong> " . $ps["rendement"] . " %</p>";
+                echo "<div class='footer-card'><small>Énergie renouvelable</small></div>";
+            echo "</div>";
+
+            echo "</li>";
+            $i++;
+        }
+    } else {
+        echo "Erreur SQL : " . mysqli_error($connexion);
+    }
+}
+
+function afficherTapisChauffant($connexion, $nomRuche) {
+    $nomRuche = mysqli_real_escape_string($connexion, $nomRuche);
+    $query = "SELECT etat_t, modeControle_t FROM TAPIS_CHAUFFANT T JOIN Ruche R ON T.idRuche = R.idRuche WHERE nom = '$nomRuche'";
+  $resultat = mysqli_query($connexion, $query);
+    if ($resultat) {
+        $total = mysqli_num_rows($resultat);
+        $i = 1;
+        while ($t = mysqli_fetch_array($resultat)) {
+            $class = ($i == 1) ? "first" : (($i == $total) ? "last" : "");
+
+            $etat = ($t["etat_t"] == 1) ? "ON" : "OFF";
+            $etatClass = ($t["etat_t"] == 1) ? "text-success" : "text-danger";
+
+            switch ($t["modeControle_t"]) {
+                case "auto":
+                    $mode = "Automatique";
+                    break;
+                case "on":
+                    $mode = "Forcé ON";
+                    break;
+                case "off":
+                    $mode = "Arrêt";
+                    break;
+                default:
+                    $mode = "Inconnu";
+            }
+            echo "<li class='$class'>";
+            echo "<div class='card'>";
+                echo "<h3>Tapis Chauffant</h3>";
+                echo "<p><strong>État :</strong> <span class='$etatClass'>$etat</span></p>";
+                echo "<p><strong>Mode :</strong> $mode</p>";
+                echo "<div class='footer-card'><small>Mesure n°$i</small></div>";
+            echo "</div>";
+            echo "</li>";
+            $i++;
+        }
+    } else {
+        echo "Erreur SQL : " . mysqli_error($connexion);
+    }
+}
+
+
+
+function AfficherVentilation($connexion, $nomRuche) {
+    // On nettoie le nom de la ruche pour la sécurité
+    $nomRuche = mysqli_real_escape_string($connexion, $nomRuche);
+
+    // Requête : on filtre par ruche et on trie par ID (ou date) décroissant
+    // On peut ajouter "LIMIT 10" pour n'afficher que les 10 dernières mesures
+    $query = "SELECT  etat_v, modeControle_v FROM Multisensor M JOIN Ruche R on M.idRuche = R.idRuche
+              WHERE nom = '$nomRuche'"; 
+    
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat) {
+        $total = mysqli_num_rows($resultat);
+        $i = 1;
+
+        while ($h = mysqli_fetch_array($resultat)) {
+            // Gestion des classes CSS
+            $class = "";
+            if ($i == 1) $class = "first";
+            elseif ($i == $total) $class = "last";
+
+            echo "<li class='$class'>";
+            echo "<div class='card'>";
+                echo "<h3>Etat Ventilation</h3>";
+                // Affichage du taux
+                echo "<p class='card-prix'>" . $h["etat_v"] . " </p>";
+                echo "<h3>Mode contrôle</h3>";
+*
+
+
+                // Affichage du taux
+                echo "<p class='card-prix'>" . $h[" modeControle_v"] . " </p>";
+                echo "<div class='footer-card'><small>Mesure n°" . $i . "</small></div>";
+            echo "</div>";
+            echo "</li>";
+            $i++;
+        }
+    } else {
+        echo "Erreur SQL : " . mysqli_error($connexion);
+    }
+}
+
+function AfficherBatterie($connexion, $nomRuche) {
+
+    $nomRuche = mysqli_real_escape_string($connexion, $nomRuche);
+
+    $query = "SELECT etatB, niveauCharge 
+              FROM BATTERIE B
+              JOIN RUCHE R ON B.idRuche = R.idRuche
+              WHERE R.nom = '$nomRuche'";
+
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat) {
+        $total = mysqli_num_rows($resultat);
+        $i = 1;
+
+        while ($h = mysqli_fetch_array($resultat)) {
+
+            $class = "";
+            if ($i == 1) $class = "first";
+            elseif ($i == $total) $class = "last";
+
+            echo "<li class='$class'>";
+            echo "<div class='card'>";
+                echo "<h3>Etat Batterie</h3>";
+                echo "<p class='card-prix'>" . $h["etatB"] . "</p>";
+
+                echo "<h3>Niveau de charge</h3>";
+                echo "<p class='card-prix'>" . $h["niveauCharge"] . " %</p>";
+
+                echo "<div class='footer-card'><small>Mesure n°" . $i . "</small></div>";
+            echo "</div>";
+            echo "</li>";
+
+            $i++;
+        }
+
+    } else {
+        echo "Erreur SQL : " . mysqli_error($connexion);
+    }
+}
+			
+			
+			
 
 ?>
