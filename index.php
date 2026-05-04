@@ -58,7 +58,7 @@
     smartphone ou ordinateur, pour une apiculture moderne et sereine. Alors n'attendez
     plus pour offrir à vos abeilles le meilleur de la technologie avec HoneZzz ! 
   </p>
-  <a href="boutique.html" class="btn-decouvrir">Découvrez nos produits</a>
+  <a href="boutique.php" class="btn-decouvrir">Découvrez nos produits</a>
 </section>
 <footer>
   <div class="footer-content">
