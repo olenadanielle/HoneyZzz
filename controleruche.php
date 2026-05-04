@@ -1,5 +1,5 @@
-<?php  require('connect.php'); ?>
-<?php  require('fonctions.php'); ?>
+<?php  require('include/connect.php'); ?>
+<?php  require('include/fonctions.php'); ?>
 <?php
 session_start();
 
