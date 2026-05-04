@@ -1,5 +1,5 @@
-<?php  require('include/connect.php'); ?>
-<?php  require('include/fonctions.php'); ?>
+<?php  require('connect.php'); ?>
+<?php  require('fonctions.php'); ?>
 
 <?php
 	$connexion = mysqli_connect("p:".SERVEUR, NOM, PASSE, BD);

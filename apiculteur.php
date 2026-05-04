@@ -1,5 +1,5 @@
-<?php  require('include/connect.php'); ?>
-<?php  require('include/fonctions.php'); ?>
+<?php  require('connect.php'); ?>
+<?php  require('fonctions.php'); ?>
 
 <?php 
     // code PHP permettant de gérer le fait que l'utilisateur est bien logué et la connection à la BD pour la page.
@@ -45,45 +45,7 @@
 </head>
 <body>
 
-<!--Barre de navigation-->
-<nav>
-  <div class="nav-left">
-    <ul class="nav-links">
-      <li><a href="index.php">Accueil</a></li>
-      <li><a href="apiculteur.php" class="active">Ruche</a></li>
-      <li><a href="boutique.php">Boutique</a></li>
-    </ul>
-  </div>
-  <div class="nav-center">
-    <img src="logo_honeyzzz2.png" alt="Logo Ruche Connectée" class="logo-img">
-  </div>
-  <div class="nav-right">
-    <a href="connexion.php" class="btn-connexion">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="8" r="4"/>
-        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-      </svg>
-      Mon compte
-    </a>
-    <button class="btn-panier" id="btn-panier">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-        <line x1="3" y1="6" x2="21" y2="6"/>
-        <path d="M16 10a4 4 0 01-8 0"/>
-      </svg>
-      Panier
-    </button>
-
-    <a class="btn-deconnexion" href="deconnexion.php">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
-        <polyline points="16 17 21 12 16 7"/>
-        <line x1="21" y1="12" x2="9" y2="12"/>
-      </svg>
-      Déconnexion
-    </a>
-  </div>
-</nav>
+<?php require('navbar.php'); ?>
 
 <!--Espace apiculteur-->
 <section class="dashboard">

@@ -30,7 +30,7 @@ function verifieProfil($connexion, $mailU, $mdp){
         } else {
             session_start();
             $_SESSION['message'] = 'Login ou mot de passe incorrect';
-            header("Location: login.php");
+            header("Location: connexion.php");
             exit();
         }
      }   
