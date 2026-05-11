@@ -761,4 +761,42 @@ function afficherPanier() {
     echo "</div>";
 }
 
+function AfficherRuchesAdmin($connexion) {
+
+    $query = " SELECT R.idRuche, R.nom AS nomRuche, R.statut, E.nomLieu, E.adresse, U.nomU, U.prenomU, U.mailU FROM Ruche R JOIN Emplacement E ON 
+R.idEmplacement = E.idEmplacement JOIN Utilisateur U ON E.idUtilisateur = U.idUtilisateur
+ WHERE U.role = 'apiculteur'  ORDER BY R.idRuche ASC";
+
+$resultat = mysqli_query($connexion, $query);
+    if ($resultat) {
+        echo "<table class='table-admin'>";
+        echo "<tr>
+                <th>ID Ruche</th>
+                <th>Nom Ruche</th>
+                <th>Statut</th>
+                <th>Lieu</th>
+                <th>Adresse</th>
+                <th>Apiculteur</th>
+                <th>Email</th>
+              </tr>";
+
+        while ($r = mysqli_fetch_array($resultat)) {
+            echo "<tr>";
+            echo "<td>" . $r['idRuche'] . "</td>";
+            echo "<td>" . htmlspecialchars($r['nomRuche']) . "</td>";
+            echo "<td>" . htmlspecialchars($r['statut']) . "</td>";
+            echo "<td>" . htmlspecialchars($r['nomLieu']) . "</td>";
+            echo "<td>" . htmlspecialchars($r['adresse']) . "</td>";
+            echo "<td>" . htmlspecialchars($r['prenomU']) . " " . htmlspecialchars($r['nomU']) . "</td>";
+            echo "<td>" . htmlspecialchars($r['mailU']) . "</td>";
+            echo "</tr>";
+        }
+        echo "</table>";
+    } else {
+        echo "Erreur SQL : " . mysqli_error($connexion);
+    }
+}
+
+
+
 ?>
